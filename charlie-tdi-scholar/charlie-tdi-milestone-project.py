@@ -1,6 +1,6 @@
 '''Imports'''
-import requests 
 import calendar
+import requests 
 import json
 from pandas import Series
 from pandas import DataFrame
@@ -18,7 +18,6 @@ import sys
 from datetime import datetime
 from datetime import timedelta
 import winreg
-import flask
 '''Variables'''
 StartUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
 MidUrl = "&outputsize=compact&apikey="
@@ -85,8 +84,8 @@ def GetStockDataFrame(InputUrl=IbmUrl):
     ClosingPricesDataFrame["Dates"] = to_datetime(ClosingPricesDataFrame["Dates"] )
     return ClosingPricesDataFrame
 ''''''
-DataFrame = GetStockDataFrame(IbmUrl)
-source = ColumnDataSource(DataFrame)
+CurrentDataFrame = GetStockDataFrame(IbmUrl)
+source = ColumnDataSource(CurrentDataFrame)
 InputSymbol = "IBM"
 ''''''
 '''This callback does not currently work :( '''
@@ -101,10 +100,19 @@ Callback = CustomJS(args=dict(source=source), code="""
     var y = NewDataSource.Prices
     source.change.emit();
 """)
-''''''
 PageGraph = figure(title="Last Month's Closing Prices", plot_width = 600, plot_height = 400, x_axis_type = 'datetime')
-PageGraph.line(x = DataFrame["Dates"], y = DataFrame["Prices"], line_width = 2)
+PageGraph.line(x = CurrentDataFrame["Dates"], y = CurrentDataFrame["Prices"], line_width = 2)
 TextInputObject = TextInput(value="IBM", title=WelcomeMessage)
 TextInputObject.js_on_change('value',Callback)
 Page = Column(TextInputObject,PageGraph)
 ShowIo(Page)
+'''procedure: make sure app is running on correct port'''
+import os
+from flask import Flask
+app = Flask(__name__)
+@app.route("/")
+def hello():
+    return "Hello world!"
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
