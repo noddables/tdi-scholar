@@ -18,6 +18,7 @@ import sys
 from datetime import datetime
 from datetime import timedelta
 import winreg
+import flask
 '''Variables'''
 StartUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
 MidUrl = "&outputsize=compact&apikey="
