@@ -8,4 +8,3 @@ Jinja2==2.7.1
 MarkupSafe
 Werkzeug==0.9.4
 itsdangerous==0.23
-wsgiref
