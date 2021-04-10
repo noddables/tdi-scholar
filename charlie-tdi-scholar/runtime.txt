@@ -1,1 +1,1 @@
-python
+https://github.com/thedataincubator/conda-buildpack#py3
