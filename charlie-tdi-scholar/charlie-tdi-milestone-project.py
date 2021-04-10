@@ -106,13 +106,24 @@ TextInputObject = TextInput(value="IBM", title=WelcomeMessage)
 TextInputObject.js_on_change('value',Callback)
 Page = Column(TextInputObject,PageGraph)
 ShowIo(Page)
-'''procedure: make sure app is running on correct port'''
-import os
-from flask import Flask
+'''procedure: start app and make sure app is running on correct port'''
+# import os
+# from flask import Flask
+# app = Flask(__name__)
+# @app.route("/")
+# def hello():
+#     return "Hello world!"
+# if __name__ == "__main__":
+#     port = int(os.environ.get("PORT", 5000))
+#     app.run(host='0.0.0.0', port=port)
+from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
-@app.route("/")
-def hello():
-    return "Hello world!"
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+@app.route('/')
+def index():
+  return render_template('index.html')
+@app.route('/about')
+def about():
+  return render_template('about.html')
+if __name__ == '__main__':
+  app.run(port=33507)
+   
