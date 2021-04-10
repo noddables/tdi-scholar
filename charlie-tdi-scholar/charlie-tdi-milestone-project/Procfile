@@ -1,2 +1,2 @@
-web: python CharlieTdiMilestoneProject
 web: gunicorn CharlieTdiMilestoneProject:run
+web: python CharlieTdiMilestoneProject
