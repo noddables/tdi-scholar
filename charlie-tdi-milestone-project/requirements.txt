@@ -1,5 +1,5 @@
 python
-gunicorn
+gunicorn==20.1.0
 requests==2.24.0
 json
 pandas
