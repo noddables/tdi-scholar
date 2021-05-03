@@ -1,5 +1,5 @@
 gunicorn
-requests==2.24.0
+requests
 json
 pandas
 bokeh
