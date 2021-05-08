@@ -1,1 +1,1 @@
-web: gunicorn run:CharlieTdiMilestoneProject
+web: gunicorn CharlieTdiMilestoneProject:run
